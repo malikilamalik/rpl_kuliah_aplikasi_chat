@@ -1,5 +1,16 @@
-class User:
+from flask.ext.sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
+
+class User(db.Model):
+    __tablename__ = 'user'
+    id_user = db.Column(db.Int, primary_key=True)
+    username = db.Column(db.String)
+    password = db.Column(db.String)
+    tanggal_lahir = db.Column(db.String)
+    no_hp = db.Column(db.String)
+    jenis_kelamin = db.Column(db.String)
+    
     def __init__(self, id, username, password, tanggal_lahir, no_hp, jenis_kelamin):
         self.id = id
         self.username = username
