@@ -42,7 +42,7 @@ def login():
             session['id'] = account['id_user']
             session['username'] = account['username']
             # Redirect to home page
-            return 'Logged in successfully!'
+            return redirect(url_for('friends'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
@@ -90,7 +90,7 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
-# Route for handling the login page logic
+# Route for handling the friends page logic
 @app.route('/friends', methods=['GET','POST'])
 def friends():
     # Check if user is loggedin
@@ -98,24 +98,47 @@ def friends():
         # User is loggedin show them the home page
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM add_friend WHERE id_user = %s', (session['id'],))
+        #fetch friend to show them in friends page
         friend = cursor.fetchall()
         return render_template('AddFriend/main.html', friends=friend)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
+# Route for handling the addfriend page logic
+@app.route('/addfriend', methods=['GET','POST'])
+def add_new_friend():
+    # Check if user is loggedin
+    if 'loggedin' in session:
+        # Output message if something goes wrong...
+        msg = ''
+        # Check if "username" POST requests exist (user submitted form)
+        if request.method == 'POST' and 'username':
+            # Create variables for easy access
+            username = request.form['username']
+            # Check if account exists using MySQL
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM user WHERE username = %s', (username,))
+            account = cursor.fetchone()
+            # If account exists show error and validation checks
+            print(account)
+            if not account:
+                msg = 'Account do not exists!'
+            elif not username:
+                msg = 'Please fill out the form!'
+            else:
+                # Account exists and the form data is valid, now insert new account into user_friends table
+                cursor.execute('INSERT INTO add_friend (id_user, id_friend) VALUES (%s, %s)', (session['id'], account['id_user'],))
+                cursor.execute('INSERT INTO add_friend (id_user, id_friend) VALUES (%s, %s)', (account['id_user'], session['id'],))
+                mysql.connection.commit()
+                return redirect(url_for('friends'))
+        elif request.method == 'POST':
+            # Form is empty... (no POST data)
+            msg = 'Please fill out the form!'
+        # Show registration form with message (if any)
+        return render_template('AddFriend/add_new_friend.html', msg=msg)
+    # User is not loggedin redirect to login page
+    return redirect(url_for('login'))
 
-# # Route for handling the login page logic
-# @app.route('/adds', methods=['GET','POST'])
-# def friends():
-#     # Check if user is loggedin
-#     if 'loggedin' in session:
-#         # User is loggedin show them the home page
-#         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-#         cursor.execute('SELECT * FROM add_friend WHERE id_user = %s', (session['id'],))
-#         friend = cursor.fetchall()
-#         return render_template('AddFriend/main.html', friends=friend)
-#     # User is not loggedin redirect to login page
-#     return redirect(url_for('login'))
 
 
 if __name__ == '__main__':

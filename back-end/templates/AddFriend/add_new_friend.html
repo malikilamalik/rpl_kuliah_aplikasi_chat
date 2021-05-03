@@ -7,19 +7,18 @@
         <link href="{{ url_for('static',filename='css/register.css') }}"  rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-        <title>Add Friend via User ID</title>
+        <title>Add Friend via Username</title>
     </head>
     <body>
-      <a href="{{ url_for('add_new_friend') }}" class="text-info"><button type="button" class="btn btn-primary">Tambah Teman</button></a>
-        <table class="table table-dark">
-            <tbody>
-                {% for friend in friends%}
-                <tr>
-                  <td>{{friend['id_user']}}</td>
-                  <td>{{friend['id_friend']}}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+        <form id="register-form" class="form" action="" method="POST">
+            <h3>Enter Username you want to add</h3>
+            <div class="form-group">
+                <input type="text" name="username" id="username" class="form-control">
+            </div>
+            <div class="form-group">
+                <div class="text-white">{{ msg }}</div>
+                <input type="submit" class="btn btn-rum form-control" value="AddFriend">
+            </div>
+        </form>
     </body>
 </html>
