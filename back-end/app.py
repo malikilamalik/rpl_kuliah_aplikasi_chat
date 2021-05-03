@@ -90,5 +90,33 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
+# Route for handling the login page logic
+@app.route('/friends', methods=['GET','POST'])
+def friends():
+    # Check if user is loggedin
+    if 'loggedin' in session:
+        # User is loggedin show them the home page
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM add_friend WHERE id_user = %s', (session['id'],))
+        friend = cursor.fetchall()
+        return render_template('AddFriend/main.html', friends=friend)
+    # User is not loggedin redirect to login page
+    return redirect(url_for('login'))
+
+
+# # Route for handling the login page logic
+# @app.route('/adds', methods=['GET','POST'])
+# def friends():
+#     # Check if user is loggedin
+#     if 'loggedin' in session:
+#         # User is loggedin show them the home page
+#         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+#         cursor.execute('SELECT * FROM add_friend WHERE id_user = %s', (session['id'],))
+#         friend = cursor.fetchall()
+#         return render_template('AddFriend/main.html', friends=friend)
+#     # User is not loggedin redirect to login page
+#     return redirect(url_for('login'))
+
+
 if __name__ == '__main__':
     app.run()
