@@ -1,9 +1,12 @@
+#Inisiasi class Grup yang berisi beberapa method/function
 class Grup:
+    #Constructor method untuk class Grup itu sendiri dengan parameter id_grup, nama_grup, dan deskripsi_grup
     def __init__(self, id_grup, nama_grup, deskripsi_grup):
         self.id_grup = id_grup
         self.nama_grup = nama_grup
         self.deskripsi_grup = deskripsi_grup
 
+    #Method untuk mengoutputkan pesan bahwa Grup berhasil dinisiasi/dibuat
     def MembuatGrup(self):
         msg = "Grup {} berhasil dibuat".format(self.nama_grup)
         return msg
