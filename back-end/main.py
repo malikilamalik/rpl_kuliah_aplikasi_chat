@@ -1,3 +1,38 @@
+#IMPLEMENTASI USER
+from model.user import User
+
+#Inisiasi user "malik"
+user1 = User("OKEI","malik", "secret123", "20-20-2020", "082219738808", "Laki Dong")
+#Inisiasi user "ryan"
+user2 = User("OKE2","ryan", "secret123", "20-10-1945", "082219738808", "Laki Banget")
+#Inisiasi user "stevan"
+user3 = User("OKE3","stevan", "secret123", "20-10-1945", "082219738808", "Laki-Laki")
+
+print("Kirim Pesan")
+print(user1.kirim_pesan())
+print("Lihat Profil User")
+print(user1.lihat_profil_user())
+print("Lihat Profil User Teman")
+print(user1.lihat_profil_user_teman(user2))
+
+#IMPLEMENTASI BLOCK USER
+#Import class Blocked_user dari direktori ../model/blocked_user
+from model.blocked_user import Blocked_user
+#Inisiasi list blocked user untuk user "malik"
+list_blocked_user1 = Blocked_user("malik")
+#Block username "stevan" dan tambahkan ke dalam list blocked user "malik"
+list_blocked_user1.addToBlockedList("stevan")
+print(list_blocked_user1.showBlocked("stevan"))
+#Block username "ryan" dan tambahkan ke dalam list blocked user "malik"
+list_blocked_user1.addToBlockedList("ryan")
+print(list_blocked_user1.showBlocked("ryan"))
+
+#Tampilkan isi list blocked user "malik"
+print(list_blocked_user1.username,"'s Blocked User List :")
+for i in range(len(list_blocked_user1.list_blocked)):
+    print(i+1,")",list_blocked_user1.list_blocked[i])
+
+#IMPLEMENTASI GRUP
 #Import class grup.py dari direktori ../model/grup
 from model.grup import Grup
 
