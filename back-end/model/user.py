@@ -1,10 +1,10 @@
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = 'user'
-    id_user = db.Column(db.Int, primary_key=True)
+    id_user = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     password = db.Column(db.String)
     tanggal_lahir = db.Column(db.String)
