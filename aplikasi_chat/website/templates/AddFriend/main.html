@@ -10,21 +10,42 @@
         <title>Add Friend via User ID</title>
     </head>
     <body>
+      <div class="container-fluid">
       <a href="{{ url_for('users.add_new_friend') }}" class="text-info"><button type="button" class="btn btn-primary">Tambah Teman</button></a>
+      <a href="{{ url_for('groups.home') }}" class="text-info"><button type="button" class="btn btn-primary">Group</button></a>
         <table class="table table-dark">
+            <thead>
+              <td>Username</td>
+            </thead>
             <tbody>
                 {% for friend in friends%}
                 <tr>
                   <td>{{friend['username']}}</td>
                   <td> <a href="/users/hapus_teman/{{friend['id']}}" class="text-info"><button type="button" class="btn btn-danger">Hapus</button></a></td>
+                  <td> <a href="/users/blokir_teman/{{friend['id']}}" class="text-info"><button type="button" class="btn btn-danger">Blokir</button></a></td>
                   <td>  <form action="{{url_for('users.chat')}}" method="POST">
                     <input type="hidden" id="id" name="id" value="{{friend['id']}}" >
-                    <button class="btn btn-primary btn-block" value="submit">Start Chat</button>
+                    <button class="btn btn-primary" value="submit">Start Chat</button>
                   </form></td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
-
+            <h1>Blocked User</h1>
+            <table class="table table-dark">
+              <thead>
+                <td>Username</td>
+              </thead>
+              <tbody>
+                  {% for block in blocked%}
+                  <tr>
+                    <td>{{block['username']}}</td>
+                    <td> <a href="/users/unblokir_teman/{{block['id']}}" class="text-info"><button type="button" class="btn btn-primary">Unblokir</button></a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
     </body>
+    
 </html>

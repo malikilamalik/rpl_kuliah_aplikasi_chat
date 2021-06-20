@@ -1,12 +1,11 @@
 from website import db
 
-class UserGroup(db.Model):
-    __tablename__ = 'user_groups'
+class BlockedUser(db.Model):
+    __tablename__ = 'user_blocked'
     id = db.Column(db.String(255), primary_key=True)
     id_user = db.Column(db.String(255))
-    id_group = db.Column(db.String(255))
-    role = db.Column(db.Enum('admin','user'))
-
+    id_user_blocked = db.Column(db.String(255))
+    
     def create(self):
         db.session.add(self)
         db.session.commit()

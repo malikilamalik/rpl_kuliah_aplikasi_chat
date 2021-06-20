@@ -1,9 +1,11 @@
+from website.models.user_blocked import BlockedUser
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import login_required,current_user
 from website.models.user_friend import UserFriend
 from website.models.user import User
+from website.models.user_blocked import BlockedUser
 from website import socketio
-from flask_socketio import SocketIO, join_room, leave_room, emit
+from flask_socketio import join_room, leave_room, emit
 import uuid
 
 users = Blueprint('users',__name__)
@@ -12,11 +14,16 @@ users = Blueprint('users',__name__)
 @login_required
 def home():
     user = current_user
+    blocked_user = BlockedUser.query\
+    .join(User, BlockedUser.id_user_blocked == User.id)\
+    .filter(BlockedUser.id_user == user.id)\
+    .add_columns(User.username,BlockedUser.id)
+    
     user_teman = UserFriend.query\
-    .join(User, UserFriend.id_user ==User.id)\
+    .join(User, UserFriend.id_user == User.id)\
     .filter(UserFriend.id_user_teman == user.id)\
     .add_columns(User.username,UserFriend.id)
-    return render_template('AddFriend/main.html',friends=user_teman)
+    return render_template('AddFriend/main.html',friends=user_teman,blocked=blocked_user)
 
 @users.route('/tambah_teman',methods=['GET', 'POST'])
 @login_required
@@ -58,6 +65,33 @@ def delete_friend(id):
     get_user_friend.delete() 
     return redirect(url_for('users.home'))
 
+@users.route('/blokir_teman/<string:id>',methods=['GET'])
+@login_required
+def blocked_user(id):
+    user = current_user
+    user_friend = UserFriend.query.get(id)
+    get_user_friend = UserFriend.query.filter_by(id_user=user.id,id_user_teman=user_friend.id_user).first()
+    bloked_friend = BlockedUser(id=uuid.uuid1(),id_user=user.id,id_user_blocked=user_friend.id_user)
+    bloked_friend.create()
+    user_friend.delete()
+    get_user_friend.delete() 
+    return redirect(url_for('users.home'))
+
+@users.route('/unblokir_teman/<string:id>',methods=['GET'])
+@login_required
+def unblocked_user(id):
+    user = current_user
+    blocked_friend = BlockedUser.query.get(id)
+    user_friend = User.query.filter_by(id=blocked_friend.id_user_blocked).first()
+    user_room = uuid.uuid1()
+    add_user_friend = UserFriend(id = uuid.uuid1(),id_user=user.id,id_user_teman=user_friend.id,user_room=user_room)
+    add_user_friend.create()
+    add_user_friend = UserFriend(id = uuid.uuid1(),id_user=user_friend.id,id_user_teman=user.id,user_room=user_room)
+    add_user_friend.create()
+    blocked_friend.delete()
+
+    return redirect(url_for('users.home'))
+
 @users.route('/chat',methods=['GET','POST'])
 @login_required
 def chat():
@@ -76,7 +110,6 @@ def chat():
 def join(message):
     room = session.get('room')
     join_room(room)
-    emit('status', {'msg':  session.get('username') + ' has entered the room.'}, room=room)
 
 
 @socketio.on('text', namespace='/users/chat')
