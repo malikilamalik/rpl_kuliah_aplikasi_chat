@@ -14,7 +14,11 @@
             {% for channel in channels%}
             <tr>
               <td>{{channel['name']}}</td>
-              <td> <a href="{{ url_for('channels.create_channel') }}/{{url_for('channels.create_channel')}}" class="text-info"><button type="button" class="btn btn-primary">Buat Channel Group Baru</button></a></td>
+              <td> <a href="{{ url_for('channels.create_channel') }}/{{url_for('channels.create_channel')}}" class="text-info"><button type="button" class="btn btn-primary">Buat Channel Baru</button></a></td>
+              <form action="{{url_for('channels.chat')}}" method="POST">
+                <input type="hidden" id="id" name="id" value="{{channel['id']}}" >
+                <button class="btn btn-rum" value="submit" style="font-size: 14px;">Start Chat</button>
+              </form></td>
             </tr>
           {% endfor %}
         </tbody>

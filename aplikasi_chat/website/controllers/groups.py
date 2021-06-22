@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required,current_user
-from website.models.user_friend import UserFriend
-from website.models.user import User
 from website.models.group import Group
 from website.models.user_group import UserGroup
 import uuid
@@ -15,8 +13,7 @@ def home():
     user_group_admin = UserGroup.query\
     .join(Group, UserGroup.id_group == Group.id)\
     .filter(UserGroup.id_user == user.id)\
-    .filter(UserGroup.role == 'admin')\
-    .add_columns(Group.id,Group.name,Group.description)
+    .add_columns(Group.id,Group.name,Group.description,UserGroup.role)
     return render_template('Groups/main.html',group_admin = user_group_admin)
 
 @groups.route('/create_group',methods=['GET', 'POST'])
@@ -52,3 +49,32 @@ def delete_group(id):
     group.delete()
     user_Group.delete() 
     return redirect(url_for('groups.home'))
+
+
+
+@groups.route('/masuk_group',methods=['GET', 'POST'])
+@login_required
+def enter_group():
+    user = current_user
+    # Output message if something goes wrong...
+    msg = ''
+    # Check if "username" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'id_group' in request.form :
+        # Create variables for easy access
+        id = uuid.uuid1()
+        id_group = request.form['id_group']
+
+        group = Group.query.get(id_group)
+        user_grup = UserGroup.query.filter_by(id_user=user.id,id_group=id_group).first()
+        print(user_grup)
+        if( group != None and user_grup == None):
+            user_group = UserGroup(id=uuid.uuid1(),id_user=user.id,id_group=id_group,role='user')
+            user_group.create()
+            return redirect(url_for('groups.home'))
+        else:
+            msg = "group not found"
+    elif request.method == 'POST':
+        # Form is empty... (no POST data)
+        msg = 'Please fill out the form!'
+    # Show registration form with message (if any)
+    return render_template('Groups/masuk_group.html', msg=msg)

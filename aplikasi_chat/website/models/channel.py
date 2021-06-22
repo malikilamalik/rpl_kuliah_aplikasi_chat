@@ -5,6 +5,7 @@ class Channel(db.Model):
     id = db.Column(db.String(255), primary_key=True)
     name = db.Column(db.String(16))
     description = db.Column(db.String())
+    code = db.Column(db.String(255))
 
     def create(self):
         db.session.add(self)

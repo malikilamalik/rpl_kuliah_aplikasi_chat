@@ -22,10 +22,12 @@ def create_app():
 
     from website.controllers.users import users
     from website.controllers.groups import groups
+    from website.controllers.channels import channels
     from website.controllers.auth import auth
     app.register_blueprint(users,url_prefix='/users')
     app.register_blueprint(auth,url_prefix='/')
     app.register_blueprint(groups,url_prefix='/groups')
+    app.register_blueprint(channels,url_prefix='/channels')
     
     from .models.user import User
     from .models.user_friend import UserFriend

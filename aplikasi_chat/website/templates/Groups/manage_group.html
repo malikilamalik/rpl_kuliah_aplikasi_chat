@@ -14,35 +14,40 @@
 
         <div class="float-child">
           <div id="logo"><center><img src="../static/img/chatext.png" alt="Logo App-Chat!" width="155" height="110"></center></div>
-          <div id="username"><h1>Welcome, {{username}}</h1></div>
-          <a href="{{ url_for('groups.create_group') }}" class="text-info"><button type="button" class="btn btn-rum form-control" style="margin-top: 30px;">Buat Group</button></a>
-          <a href="{{ url_for('groups.enter_group') }}" class="text-info"><button type="button" class="btn btn-rum form-control" style="margin-top: 10px;">Masuk Group</button></a>
-          <center><a href="{{ url_for('auth.logout') }}" class="text-info"><button type="button" class="btn btn-rum" style="margin-top: 30px;">Logout</button></a></center>
+          <div id="username"><h1>Group Invitation : <br>
+            {{ group_id }}
+        </h1></div>
+            <a href="/channels/create_channel/{{group_id}}" class="text-info"><button type="button" class="btn btn-rum form-control" style="margin-top: 30px;">Buat Channel</button></a> 
+        <center><a href="{{ url_for('auth.logout') }}" class="text-info"><button type="button" class="btn btn-rum" style="margin-top: 30px;">Logout</button></a></center>
           
         </div>
         
         <div class="float-child">
       <div class="container-fluid">
-        <h4>Group List</h4>
+        <h4>Channel List</h4>
         <table class="table table-dark">
             <thead>
               <th>Nama</th>
             </thead>
             <tbody style="height: 400px; overflow: scroll; display:block;">
-              {% for group in group_admin%}
+              {% for channel in channels%}
                 <tr>
-                  <td>{{group['name']}}</td>
-                  <td>{{group['description']}}</td>
-                  <td> <a href="/channels/{{group['id']}}" class="text-info"><button type="button" class="btn btn-primary" style="font-size: 14px;">Grup</button></a></td>
-                  {% if group['role'] == 'admin' %}
-                    <td> <a href="/groups/hapus_group/{{group['id']}}" clapss="text-info"><button type="button" class="btn btn-danger" style="font-size: 14px;">Hapus</button></a></td>
+                  <td>{{channel['name']}}</td>
+                  <td>{{channel['description']}}</td>
+                  <td>
+                    <form action="{{url_for('channels.chat')}}" method="POST">
+                      <input type="hidden" id="id" name="id" value="{{channel['id']}}" >
+                      <button class="btn btn-rum" value="submit" style="font-size: 14px;">Start Chat</button>
+                    </form></td>
+                    {% if user_group['role'] == 'admin' %}
+                    <td> <a href="/channels/hapus_channel/{{group_id}}/{{channel['id']}}" clapss="text-info"><button type="button" class="btn btn-danger" style="font-size: 14px;">Hapus</button></a></td>
                   {% endif %}
                 </tr>
               {% endfor %}
             </tbody>
           </table>
           <h4>Friend List
-            <a href="{{ url_for('users.home') }}" class="text-info"><button type="button" class="btn btn-rum">Friend Menu</button></a>
+            <a href="{{ url_for('groups.home') }}" class="text-info"><button type="button" class="btn btn-rum">Group</button></a>
           </h4>
     </div>
   </div>
