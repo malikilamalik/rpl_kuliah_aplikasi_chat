@@ -4,48 +4,64 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-        <link href="{{ url_for('static',filename='css/register.css') }}"  rel="stylesheet">
+        <link href="{{ url_for('static',filename='css/home.css') }}"  rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-        <title>Add Friend via User ID</title>
+        <title>Chat! Home</title>
     </head>
     <body>
-      <div class="container-fluid">
-      <a href="{{ url_for('users.add_new_friend') }}" class="text-info"><button type="button" class="btn btn-primary">Tambah Teman</button></a>
-      <a href="{{ url_for('groups.home') }}" class="text-info"><button type="button" class="btn btn-primary">Group</button></a>
-        <table class="table table-dark">
-            <thead>
-              <td>Username</td>
-            </thead>
-            <tbody>
-                {% for friend in friends%}
-                <tr>
-                  <td>{{friend['username']}}</td>
-                  <td> <a href="/users/hapus_teman/{{friend['id']}}" class="text-info"><button type="button" class="btn btn-danger">Hapus</button></a></td>
-                  <td> <a href="/users/blokir_teman/{{friend['id']}}" class="text-info"><button type="button" class="btn btn-danger">Blokir</button></a></td>
-                  <td>  <form action="{{url_for('users.chat')}}" method="POST">
-                    <input type="hidden" id="id" name="id" value="{{friend['id']}}" >
-                    <button class="btn btn-primary" value="submit">Start Chat</button>
-                  </form></td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-            <h1>Blocked User</h1>
+      <div class="float-container">
+
+        <div class="float-child">
+          <div id="logo"><center><img src="../static/img/chatext.png" alt="Logo App-Chat!" width="155" height="110"></center></div>
+          <div id="username"><h1>Welcome, {{username}}</h1></div>
+          <center><a href="{{ url_for('auth.logout') }}" class="text-info"><button type="button" class="btn btn-rum" style="margin-top: 30px;">Logout</button></a></center>
+          
+        </div>
+        
+        <div class="float-child">
+          <div class="container-fluid">
+            <h4>Friend List
+              <a href="{{ url_for('users.add_new_friend') }}" class="text-info"><button type="button" class="btn btn-rum">Tambah Teman</button></a>
+            </h4>
             <table class="table table-dark">
-              <thead>
-                <td>Username</td>
-              </thead>
-              <tbody>
-                  {% for block in blocked%}
-                  <tr>
-                    <td>{{block['username']}}</td>
-                    <td> <a href="/users/unblokir_teman/{{block['id']}}" class="text-info"><button type="button" class="btn btn-primary">Unblokir</button></a></td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+                <thead>
+                  <td>Username</td>
+                </thead>
+                <tbody style="height: 200px; overflow: auto; display:block">
+                    {% for friend in friends%}
+                    <tr>
+                      <td>{{friend['username']}}</td>
+                      <td> <a href="/users/hapus_teman/{{friend['id']}}" class="text-info"><button type="button" class="btn btn-danger" style="font-size: 14px;">Hapus</button></a></td>
+                      <td> <a href="/users/blokir_teman/{{friend['id']}}" class="text-info"><button type="button" class="btn btn-danger" style="font-size: 14px;">Blokir</button></a></td>
+                      <td>  <form action="{{url_for('users.chat')}}" method="POST">
+                        <input type="hidden" id="id" name="id" value="{{friend['id']}}" >
+                        <button class="btn btn-rum" value="submit" style="font-size: 14px;">Start Chat</button>
+                      </form></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+                <h4>Blocked User (Friend) List</h4>
+                <table class="table table-dark">
+                  <thead>
+                    <td>Username</td>
+                  </thead>
+                  <tbody style="height: 100px; overflow: auto; display:block">
+                      {% for block in blocked%}
+                      <tr>
+                        <td>{{block['username']}}</td>
+                        <td> <a href="/users/unblokir_teman/{{block['id']}}" class="text-info"><button type="button" class="btn btn-rum" style="font-size: 14px;">Unblokir</button></a></td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <h4>Group List
+                <a href="{{ url_for('groups.home') }}" class="text-info"><button type="button" class="btn btn-rum">Group Menu</button></a>
+              </h4>
+            </div>
           </div>
+      </div>
     </body>
     
 </html>
