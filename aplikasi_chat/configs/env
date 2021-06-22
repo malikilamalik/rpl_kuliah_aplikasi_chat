@@ -1,0 +1,8 @@
+DB_USER=root
+DB_PASSWORD=
+DB_HOST=localhost
+DB_NAME=aplikasi_chat
+DB_PORT=3306
+
+SECRET_KEY=Dis1sN@tCommon
+JWT_SECRET_KEY=Wh4tD@y0um34n

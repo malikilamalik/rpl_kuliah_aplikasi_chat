@@ -36,7 +36,7 @@ def create_group():
         user_group.create()
         new_group.create()
         msg = 'Group successfully created!'
-
+        return redirect(url_for('groups.home'))
     elif request.method == 'POST':
         # Form is empty... (no POST data)
         msg = 'Please fill out the form!'

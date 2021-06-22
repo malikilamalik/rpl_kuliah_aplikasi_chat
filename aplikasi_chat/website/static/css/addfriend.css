@@ -4,18 +4,16 @@ body {
     background-image: url("../img/background.jpg");
     height: 100vh;
   }
-  #register .container #register-row #register-column #register-box {
-    margin-top: 55px;
+  #addfriend .container #addfriend-row #addfriend-column #addfriend-box {
+    margin-top: 100px;
     width: 720px;
     height: auto;
     background-color: #000;
     border-radius: 5px;
-  }
-  #register .container #register-row #register-column #register-box #register-form {
     padding: 30px;
   }
-  #register .container #register-row #register-column #register-box #register-form #register-link {
-    margin-top: -85px;
+  #addfriend .container #addfriend-row #addfriend-column #addfriend-box #addfriend-form {
+    padding: 30px;
   }
 
 .btn-rum{

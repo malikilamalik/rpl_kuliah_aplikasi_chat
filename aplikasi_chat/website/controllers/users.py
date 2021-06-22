@@ -14,6 +14,7 @@ users = Blueprint('users',__name__)
 @login_required
 def home():
     user = current_user
+    username =user.username
     blocked_user = BlockedUser.query\
     .join(User, BlockedUser.id_user_blocked == User.id)\
     .filter(BlockedUser.id_user == user.id)\
@@ -23,7 +24,7 @@ def home():
     .join(User, UserFriend.id_user == User.id)\
     .filter(UserFriend.id_user_teman == user.id)\
     .add_columns(User.username,UserFriend.id)
-    return render_template('AddFriend/main.html',friends=user_teman,blocked=blocked_user)
+    return render_template('AddFriend/main.html',friends=user_teman,blocked=blocked_user,username=username)
 
 @users.route('/tambah_teman',methods=['GET', 'POST'])
 @login_required
