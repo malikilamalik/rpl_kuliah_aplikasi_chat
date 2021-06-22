@@ -8,7 +8,8 @@
     <link href="{{ url_for('static',filename='css/login.css') }}"  rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <title>Login</title>
+    <link rel="shortcut icon" href="../static/img/chatpurp-small.png" />
+    <title>Chat! Login</title>
 </head>
 <body>
     <div id="login">
@@ -17,7 +18,7 @@
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="" method="post">
-                            <center><img src="../static/img/chatext.png" alt="Logo App-Chat!" width="130" height="100"></center>
+                            <center><img src="../static/img/chatgray.png" alt="Logo App-Chat!" width="130" height="100"></center>
                             <h3 class="text-center text-white">Hello There !</h3>
                             <p class="text-center text-gray">Selamat Datang di App Chat! Silahkan Login terlebih dahulu</p>
                             <div class="form-group">
@@ -35,6 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <p class="text-gray">Belum punya akun? <a href="{{ url_for('auth.register') }}" class="text-info">Register here</a></p>
+                                <p class="text-gray" style="font-size: 11px; text-align: center;">©2021 KELOMPOK 9 RPL IF-42-02</p>
                             </div>
                         </form>
                     </div>

@@ -7,7 +7,8 @@
         <link href="{{ url_for('static',filename='css/creategroup.css') }}"  rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-        <title>Masuk Group</title>
+        <link rel="shortcut icon" href="../static/img/chatpurp-small.png" />
+        <title>Chat! Join a Group</title>
     </head>
     <body>
         <div id="creategroup">
@@ -16,15 +17,15 @@
                     <div id="creategroup-column" class="col-md-6">
                         <div id="creategroup-box" class="col-md-12">
                             <form id="register-form" class="form" action="" method="POST">
-                                <img src="../static/img/chatext.png" alt="Logo App-Chat!" width="100" height="70" style="margin-bottom: 15px;">
-                                <h3>Enter Group</h3>
+                                <img src="../static/img/chatgray.png" alt="Logo App-Chat!" width="100" height="70" style="margin-bottom: 15px;">
+                                <h3>Enter Group Invitation Code</h3>
                                 <div class="form-group">
                                     <input type="text" name="id_group" id="id_group" class="form-control">
                                 </div>
     
                                 <div class="form-group">
                                     <div class="text-white">{{ msg }}</div>
-                                    <input type="submit" class="btn btn-rum form-control" value="Enter Group">
+                                    <input type="submit" class="btn btn-rum form-control" value="Join Group">
                                 </div>
                             </form>
                         </div>

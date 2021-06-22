@@ -10,11 +10,12 @@ groups = Blueprint('groups',__name__)
 @login_required
 def home():
     user = current_user
+    username =user.username
     user_group_admin = UserGroup.query\
     .join(Group, UserGroup.id_group == Group.id)\
     .filter(UserGroup.id_user == user.id)\
     .add_columns(Group.id,Group.name,Group.description,UserGroup.role)
-    return render_template('Groups/main.html',group_admin = user_group_admin)
+    return render_template('Groups/main.html',group_admin = user_group_admin, username=username)
 
 @groups.route('/create_group',methods=['GET', 'POST'])
 @login_required

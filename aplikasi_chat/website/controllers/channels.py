@@ -27,7 +27,7 @@ def create_channel(id):
         user_channel.create()
         new_channel.create()
         msg = 'Channel successfully created!'
-
+        return redirect(url_for('groups.home'))
     elif request.method == 'POST':
         # Form is empty... (no POST data)
         msg = 'Please fill out the form!'

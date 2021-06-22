@@ -1,14 +1,15 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url("../img/background.jpg");
+    background-image: url("../img/backgroundgray3.jpg");
     height: 100vh;
+    color: #fff;
   }
   #creategroup .container #creategroup-row #creategroup-column #creategroup-box {
     margin-top: 100px;
     width: 720px;
     height: auto;
-    background-color: #000;
+    background-color: #212226;
     border-radius: 5px;
     padding: 30px;
   }

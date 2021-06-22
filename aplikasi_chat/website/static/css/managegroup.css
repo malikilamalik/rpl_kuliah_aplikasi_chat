@@ -22,7 +22,7 @@ body {
   background-color: #453852;
 }
 #logo{
-    margin-top: 120px;
+    margin-top: 100px;
     text-align: center;
 } 
 #username{
@@ -44,7 +44,6 @@ body {
   #login .container #login-row #login-column #login-box #login-form #register-link {
     margin-top: -85px;
   }
-
 .btn-blk{
     background-color: #1f2021;
     color: #fff;

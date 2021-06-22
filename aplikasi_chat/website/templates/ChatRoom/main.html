@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Chat!</title>
+    <link rel="shortcut icon" href="../static/img/chatpurp-small.png" />
+    <title>Chat! in Personal</title>
     <!--Link to CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link href="{{ url_for('static',filename='css/chat.css') }}"  rel="stylesheet">
@@ -41,12 +42,13 @@
 
   <body class="text-center">
     
-    <div class="chatwindow">
-      <h2>Room : {{session['username']}}</h2><br>
+    <div id="chatbox" class="chatwindow">
+        <center><img src="../static/img/chatgray.png" alt="Logo App-Chat!" width="120" height="80" style="margin-bottom: 10px;"></center>
+      <h2>Personal Chat Room by {{session['username']}}</h2><br>
       <textarea id="chat" cols="70" rows="10" placeholder="No messages yet. Start one..."></textarea><br /><br />
       <input type="text" id="text" size="60" placeholder="Enter your message here" />
       <button type="button" id="send" class="btn btn-success">SEND</button><br /><br />
-      <center><button type="button" class="btn btn-danger" onclick=leave_room()>Leave this Chat</button></center>
+      <center><button type="button" class="btn btn-rum" onclick=leave_room()>Leave this Chat</button></center>
     </div>
   </body>
 </html>
