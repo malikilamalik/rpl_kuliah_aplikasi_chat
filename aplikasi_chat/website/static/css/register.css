@@ -1,15 +1,17 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url("../img/background.jpg");
+    background-image: url("../img/backgroundpurp.jpg");
     height: 100vh;
+    color: #fff;
   }
   #register .container #register-row #register-column #register-box {
-    margin-top: 55px;
+    margin-top: 45px;
     width: 720px;
     height: auto;
-    background-color: #000;
+    background-color: #212226;
     border-radius: 5px;
+    font-size: 13px;
   }
   #register .container #register-row #register-column #register-box #register-form {
     padding: 30px;
